@@ -4,18 +4,18 @@
 This project is a B2C (Business to Consumer) e-commerce application developed using Flutter. It allows users to browse through a variety of products, add them to their cart, and make purchases. The application provides a user-friendly interface for an enhanced shopping experience.
 
 # Feature
-_ Cart
-_ FilterByCartegory
-_ Checkout
-_ Show product and product detail
-_ Register and Login
-_ Show user profile
-_ Promotion
-_ Search
-_ Verified account via email
-_ Forgot password via email
-_ Show order and order detail
-_ Change language
+_ Cart<br/>
+_ FilterByCartegory<br/>
+_ Checkout<br/>
+_ Show product and product detail<br/>
+_ Register and Login<br/>
+_ Show user profile<br/>
+_ Promotion<br/>
+_ Search<br/>
+_ Verified account via email<br/>
+_ Forgot password via email<br/>
+_ Show order and order detail<br/>
+_ Change language<br/>
 
 # Technological use
 _ Dio and Retrofit for call API.
