@@ -18,22 +18,22 @@ _ Show order and order detail<br/>
 _ Change language<br/>
 
 # Technological use
-_ Dio and Retrofit for call API.
-_ RxDart for stream management.
-_ Bloc for state management.
-_ Hive for save list of item of cart before checkout in local. 
-_ Localization for language change.
+_ Dio and Retrofit for call API.<br/>
+_ RxDart for stream management.<br/>
+_ Bloc for state management.<br/>
+_ Hive for save list of item of cart before checkout in local. <br/>
+_ Localization for language change.<br/>
 
 # Project Structure
-_ assets: Contains static files such as images and icons.
-_ lib: Contains the main application code.
-    _ l10n: Contain Endlish and Vietnamese language script.
-    _ languages: Set up language.
-    _ src
-        _ api: Contain all api of this app.
-        _ constant: Contain all color, validate and global variable.
-        _ core: Defines data models for all api of this app.
-        _ feature: Contain all of feature of this app.
+_ assets: Contains static files such as images and icons.<br/>
+_ lib: Contains the main application code.<br/>
+    _ l10n: Contain Endlish and Vietnamese language script.<br/>
+    _ languages: Set up language.<br/>
+    _ src:<br/>
+        _ api: Contain all api of this app.<br/>
+        _ constant: Contain all color, validate and global variable.<br/>
+        _ core: Defines data models for all api of this app.<br/>
+        _ feature: Contain all of feature of this app.<br/>
 
 # Setup
  1. Add sql file ..\back_end\Database\MobileStoreDatabase.sql to MySQL.
