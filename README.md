@@ -27,13 +27,13 @@ _ Localization for language change.<br/>
 # Project Structure
 _ assets: Contains static files such as images and icons.<br/>
 _ lib: Contains the main application code.<br/>
-    _ l10n: Contain Endlish and Vietnamese language script.<br/>
-    _ languages: Set up language.<br/>
-    _ src:<br/>
-        _ api: Contain all api of this app.<br/>
-        _ constant: Contain all color, validate and global variable.<br/>
-        _ core: Defines data models for all api of this app.<br/>
-        _ feature: Contain all of feature of this app.<br/>
+&ensp;    _ l10n: Contain Endlish and Vietnamese language script.<br/>
+&ensp;    _ languages: Set up language.<br/>
+&ensp;    _ src:<br/>
+&emsp;        _ api: Contain all api of this app.<br/>
+&emsp;        _ constant: Contain all color, validate and global variable.<br/>
+&emsp;        _ core: Defines data models for all api of this app.<br/>
+&emsp;        _ feature: Contain all of feature of this app.<br/>
 
 # Setup
  1. Add sql file ..\back_end\Database\MobileStoreDatabase.sql to MySQL.
