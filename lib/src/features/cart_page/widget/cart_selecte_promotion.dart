@@ -13,7 +13,7 @@ import '../view/cart_page.dart';
 import '../view_model/cart_view_model.dart';
 
 class SelectedPromotionCard extends StatefulWidget {
-  SelectedPromotionCard({Key? key}) : super(key: key);
+  const SelectedPromotionCard({Key? key}) : super(key: key);
 
   @override
   State<SelectedPromotionCard> createState() => _SelectedPromotionCardState();

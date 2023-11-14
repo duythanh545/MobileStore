@@ -24,7 +24,6 @@ class _MenuButtonState extends State<MenuButton> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getData();
   }

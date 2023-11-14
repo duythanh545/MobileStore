@@ -23,7 +23,7 @@ class _NotLoginState extends State<NotLogin> {
         children: [
           Text(
             '${AppLocalizations.of(context)?.notLoginYet}',
-            style: TextStyle(fontSize: 40),
+            style: const TextStyle(fontSize: 40),
           ),
           SizedBox(
             width: MediaQuery.of(context).orientation == Orientation.portrait

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_store/src/constant/color/color.dart';
 import 'package:mobile_store/src/features/address/view/add_address.dart';
@@ -38,11 +37,8 @@ class _CartPageState extends State<CartPage> {
   final textCurrency = NumberFormat("#,###.###", "en_US");
   double price = 0;
 
-
-
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       appBar: appBarWidget(context, false),
       body: SingleChildScrollView(
@@ -69,7 +65,8 @@ class _CartPageState extends State<CartPage> {
                     FutureBuilder(
                       future: cartViewModel.totalPay(),
                       builder: (context, getData) {
-                        if (getData.connectionState == ConnectionState.waiting) {
+                        if (getData.connectionState ==
+                            ConnectionState.waiting) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
@@ -78,7 +75,8 @@ class _CartPageState extends State<CartPage> {
                         } else {
                           return StreamBuilder<GetPriceCartState>(
                             initialData: GetPriceCartState(getData.data!),
-                            stream: CartPage.cartBloc.getPriceStateController.stream,
+                            stream: CartPage
+                                .cartBloc.getPriceStateController.stream,
                             builder: (context, snapshot) {
                               return Text(
                                 '${textCurrency.format(snapshot.data?.price)} đ',
@@ -124,9 +122,9 @@ class _CartPageState extends State<CartPage> {
               ),
             ),
 
-// selected promotion,
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            // selected promotion,
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: SelectedPromotionCard(),
             ),
           ],
@@ -169,7 +167,8 @@ class _CartPageState extends State<CartPage> {
                 padding: const EdgeInsets.only(right: 20.0, bottom: 10.0),
                 child: ElevatedButton.icon(
                   onPressed: () async {
-                    final selectedAddressCubit = context.read<SelectedAddressCubit>();
+                    final selectedAddressCubit =
+                        context.read<SelectedAddressCubit>();
                     final selectedAddressId = selectedAddressCubit.state;
 
                     orderProductDTOList = await cartViewModel.cartViewModel();
@@ -180,8 +179,10 @@ class _CartPageState extends State<CartPage> {
                       showTopSnackBar(
                         // ignore: use_build_context_synchronously
                         Overlay.of(context),
-                         CustomSnackBar.error(
-                          message:'${AppLocalizations.of(context)?.pleaseEnterFullInformation} ',
+                        CustomSnackBar.error(
+                          message: (context.mounted)
+                              ? '${AppLocalizations.of(context)?.pleaseEnterFullInformation}'
+                              : '',
                           backgroundColor: Colors.red,
                         ),
                       );

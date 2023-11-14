@@ -5,8 +5,8 @@ import '../../../core/remote/response/category_response/category_items_response.
 
 class GetCategoryService {
   Future<CategoryItemsResponse> getCategoryService(int no, int limit) async {
-    CategoryItemsResponse _categoryItemsResponse =
+    CategoryItemsResponse categoryItemsResponse =
         await ApiService(dio.Dio()).getCategory(no, limit);
-    return _categoryItemsResponse;
+    return categoryItemsResponse;
   }
 }

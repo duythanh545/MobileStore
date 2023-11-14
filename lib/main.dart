@@ -41,7 +41,6 @@ _autoLogin() async {
   } else {
     successLoginState.onLoginState = false;
   }
-  print('${getUser.email} - ${getUser.idUser} - ${getUser.password} - ${getUser.token}');
 }
 
 GetUser getUser = GetUser();

@@ -15,6 +15,7 @@ class GetAddressScreen extends StatefulWidget {
 class _GetAddressScreenState extends State<GetAddressScreen> {
   List<Address> addressList = [];
   final AddressViewModel _addressViewModel = AddressViewModel();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Address>>(
@@ -32,7 +33,7 @@ class _GetAddressScreenState extends State<GetAddressScreen> {
             // Build UI using the retrieved products
             return buildUI(context);
           } else {
-            return  Container();
+            return Container();
           }
         }
       },
@@ -53,19 +54,19 @@ class _GetAddressScreenState extends State<GetAddressScreen> {
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 1,
-                    child: Text('${address.nameReceiver} | ${address.phoneReceiver}'),
+                    child: Text(
+                        '${address.nameReceiver} | ${address.phoneReceiver}'),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 1,
                     child: Text('${address.location}'),
                   ),
                   const SizedBox(height: 4),
-                  
-                    Row(
-                      children: [
-                        if (address.defaults == true)
+                  Row(
+                    children: [
+                      if (address.defaults == true)
                         Padding(
-                          padding: EdgeInsets.only(right: 20),
+                          padding: const EdgeInsets.only(right: 20),
                           child: OutlinedButton(
                             onPressed: () {},
                             style: OutlinedButton.styleFrom(
@@ -73,7 +74,8 @@ class _GetAddressScreenState extends State<GetAddressScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(0),
                               ),
-                              side: const BorderSide(width: 1, color: Colors.green),
+                              side: const BorderSide(
+                                  width: 1, color: Colors.green),
                               padding: const EdgeInsets.symmetric(
                                 vertical: 0.1,
                                 horizontal: 14,
@@ -87,23 +89,22 @@ class _GetAddressScreenState extends State<GetAddressScreen> {
                             ),
                           ),
                         ),
-                        if(address.locationType != '')
+                      if (address.locationType != '')
                         Container(
                           width: 70,
                           height: 35,
                           decoration: BoxDecoration(
-                            border: Border.all(color: kOrange),
-                            color: kDarkGreyColor
-                          ),
+                              border: Border.all(color: kOrange),
+                              color: kDarkGreyColor),
                           child: Center(
                               child: Text(
                             '${address.locationType?.toUpperCase()}',
-                            style: TextStyle(color: kOrange, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                                color: kOrange, fontWeight: FontWeight.bold),
                           )),
                         )
-                      ],
-                    ),
-                    
+                    ],
+                  ),
                 ],
               ),
               trailing: Wrap(
@@ -115,10 +116,12 @@ class _GetAddressScreenState extends State<GetAddressScreen> {
                         context: context,
                         builder: (BuildContext context) {
                           return ChangeAddressScreen(
-                              name: address.nameReceiver,
-                              phone: address.phoneReceiver,
-                              address: address.location,
-                              id: address.id, locationType: address.locationType,);
+                            name: address.nameReceiver,
+                            phone: address.phoneReceiver,
+                            address: address.location,
+                            id: address.id,
+                            locationType: address.locationType,
+                          );
                         },
                       );
                     },

@@ -40,27 +40,29 @@ class _CustomAppBarState extends State<CustomAppBar> {
         ),
         color: kDarkGreyColor,
         boxShadow: const [BoxShadow(blurRadius: 50.0)],
-        borderRadius:
-            BorderRadius.vertical(bottom: Radius.elliptical(MediaQuery.of(context).size.width, 20)),
+        borderRadius: BorderRadius.vertical(
+            bottom: Radius.elliptical(MediaQuery.of(context).size.width, 20)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const MenuButton(),
                 SizedBox(
-                  width: MediaQuery.of(context).orientation == Orientation.portrait
-                      ? MediaQuery.of(context).size.width * 0.65
-                      : MediaQuery.of(context).size.width * 0.45, 
-                  height: MediaQuery.of(context).orientation == Orientation.portrait
-                      ? MediaQuery.of(context).size.height * 0.05
-                      : MediaQuery.of(context).size.height * 0.1, 
+                  width:
+                      MediaQuery.of(context).orientation == Orientation.portrait
+                          ? MediaQuery.of(context).size.width * 0.65
+                          : MediaQuery.of(context).size.width * 0.45,
+                  height:
+                      MediaQuery.of(context).orientation == Orientation.portrait
+                          ? MediaQuery.of(context).size.height * 0.05
+                          : MediaQuery.of(context).size.height * 0.1,
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -70,13 +72,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     },
                     child: Container(
                       padding: EdgeInsets.fromLTRB(
-                        MediaQuery.of(context).orientation == Orientation.portrait
+                        MediaQuery.of(context).orientation ==
+                                Orientation.portrait
                             ? 10.0
                             : 20.0,
                         10.0,
-                        MediaQuery.of(context).orientation == Orientation.portrait
+                        MediaQuery.of(context).orientation ==
+                                Orientation.portrait
                             ? 20.0
-                            : 10.0, 
+                            : 10.0,
                         10.0,
                       ),
                       decoration: BoxDecoration(
@@ -87,13 +91,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).orientation == Orientation.portrait
+                            width: MediaQuery.of(context).orientation ==
+                                    Orientation.portrait
                                 ? MediaQuery.of(context).size.width * 0.50
-                                : MediaQuery.of(context).size.width * 0.35, 
+                                : MediaQuery.of(context).size.width * 0.35,
                             child: DefaultTextStyle(
                               style: GoogleFonts.lato(
                                 color: kGreenColor,
-                                textStyle: Theme.of(context).textTheme.displayLarge,
+                                textStyle:
+                                    Theme.of(context).textTheme.displayLarge,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FontStyle.italic,
@@ -105,7 +111,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                                     speed: const Duration(milliseconds: 200),
                                   ),
                                   TyperAnimatedText(
-                                    'R2S..',
+                                    'Nguyễn Duy Thành - leader',
+                                    speed: const Duration(milliseconds: 200),
+                                  ),
+                                  TyperAnimatedText(
+                                    'Trần Đức Uy - member',
                                     speed: const Duration(milliseconds: 200),
                                   ),
                                   TyperAnimatedText(
@@ -116,7 +126,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                                 onTap: () {
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => const Search()),
+                                    MaterialPageRoute(
+                                        builder: (context) => const Search()),
                                   );
                                 },
                               ),
@@ -142,7 +153,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           });
                           Get.offAll(const NavigationHomePage());
                         },
-                        icon: (successLoginState.onLoginState && successLoginState.isVerified)
+                        icon: (successLoginState.onLoginState &&
+                                successLoginState.isVerified)
                             ? Badge(
                                 label: Text('${snapshot.data?.cartListLength}'),
                                 child: const Icon(
@@ -160,18 +172,21 @@ class _CustomAppBarState extends State<CustomAppBar> {
           ),
           (successLoginState.onLoginState && successLoginState.isVerified)
               ? SizedBox(
-                  height: MediaQuery.of(context).orientation == Orientation.portrait
-                      ? MediaQuery.of(context).size.height * 0.05
-                      : MediaQuery.of(context).size.height * 0.08,
+                  height:
+                      MediaQuery.of(context).orientation == Orientation.portrait
+                          ? MediaQuery.of(context).size.height * 0.05
+                          : MediaQuery.of(context).size.height * 0.08,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(getUser.userDTO.fullName ?? ''),
+                        Text(getUser.userDTO.fullName?.toUpperCase() ?? '',
+                            style: const TextStyle(color: Colors.white)),
                         TextButton(
                             onPressed: () async {
-                              SharedPreferences preferences = await SharedPreferences.getInstance();
+                              SharedPreferences preferences =
+                                  await SharedPreferences.getInstance();
                               if (getUser.isRemember == false) {
                                 preferences.remove('email');
                                 preferences.remove('password');
@@ -183,13 +198,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
                               getUser.email = preferences.getString('email');
                               getUser.idUser = preferences.getInt('idUser');
                               getUser.token = preferences.getString('token');
-                              getUser.password = preferences.getString('password');
+                              getUser.password =
+                                  preferences.getString('password');
 
                               // ignore: use_build_context_synchronously
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const NavigationHomePage()));
+                                      builder: (context) =>
+                                          const NavigationHomePage()));
                             },
                             child: Text(
                               '${AppLocalizations.of(context)?.logout}',
@@ -211,11 +228,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
 PreferredSizeWidget? appBarWidget(BuildContext context, bool isBack) {
   return PreferredSize(
-    preferredSize: (successLoginState.onLoginState && successLoginState.isVerified)
-        ? MediaQuery.of(context).orientation == Orientation.portrait
-            ? Size.fromHeight(MediaQuery.of(context).size.height * 0.2)
-            : Size.fromHeight(MediaQuery.of(context).size.height * 0.35)
-        : Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
+    preferredSize:
+        (successLoginState.onLoginState && successLoginState.isVerified)
+            ? MediaQuery.of(context).orientation == Orientation.portrait
+                ? Size.fromHeight(MediaQuery.of(context).size.height * 0.2)
+                : Size.fromHeight(MediaQuery.of(context).size.height * 0.35)
+            : Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
     child: AppBar(
         backgroundColor: kSecondaryColor,
         leading: isBack
@@ -234,13 +252,16 @@ PreferredSizeWidget? appBarWidget(BuildContext context, bool isBack) {
           DropdownButton<Language>(
             iconSize: 30,
             icon: Image.asset('assets/icon/language_option.png',
-                height: MediaQuery.of(context).orientation == Orientation.portrait
-                    ? MediaQuery.of(context).size.height * 0.045
-                    : MediaQuery.of(context).size.height * 0.1),
+                height:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? MediaQuery.of(context).size.height * 0.045
+                        : MediaQuery.of(context).size.height * 0.1),
             onChanged: (Language? language) async {
               if (language != null) {
-                Locale _locale = await setLocale(language.languageCode);
-                MyApp.setLocale(context, _locale);
+                Locale locale = await setLocale(language.languageCode);
+                if (context.mounted) {
+                  MyApp.setLocale(context, locale);
+                }
               }
             },
             items: Language.languageList()

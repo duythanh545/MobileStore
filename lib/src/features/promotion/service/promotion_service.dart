@@ -14,7 +14,7 @@ class PromotionService {
   }
 
   // call api get idAddress
-  static Future<PromotionDTO> getIdPromotionService(int? idPromotion) async {
+  static Future<PromotionDTO?> getIdPromotionService(int? idPromotion) async {
     PromotionDTO promotion = await ApiService(Dio()).getIdPromotion(id: idPromotion);
 
     return promotion;

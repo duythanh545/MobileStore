@@ -38,7 +38,7 @@ import '../core/remote/response/sign_up_response/sign_up_response.dart';
 part 'api_service.g.dart';
 
 //Base address
-@RestApi(baseUrl: 'http://192.168.1.20:8085/apis')
+@RestApi(baseUrl: 'http://192.168.1.6:8085/apis')
 // @RestApi(baseUrl: 'http://45.117.170.206:8085')
 
 abstract class ApiService {

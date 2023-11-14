@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_store/src/constant/color/color.dart';
 import 'package:mobile_store/src/constant/utils/validate.dart';
 import 'package:mobile_store/src/features/change_password/view_model/change_password_view_model.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);
+
   @override
   State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
 }
@@ -22,18 +22,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   bool obscurePassword = true;
   bool obscureNewPassword = true;
   bool obscureRepeatPassword = true;
-  final ChangePasswordViewModel _changePasswordViewModel = ChangePasswordViewModel();
+  final ChangePasswordViewModel _changePasswordViewModel =
+      ChangePasswordViewModel();
   bool error = false;
   bool errorNewPassword = false;
   bool errorConfirmPassword = false;
   String errorText = '';
   String errorNewPasswordText = '';
   String errorComFirmPasswordText = '';
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +42,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
-                child: Text('${AppLocalizations.of(context)?.changePassword}'.toUpperCase(),
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.01),
+                child: Text(
+                    '${AppLocalizations.of(context)?.changePassword}'
+                        .toUpperCase(),
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -55,7 +54,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     )),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.04),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.04),
                 child: Column(
                   children: [
                     TextFormField(
@@ -64,7 +64,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       obscureText: obscurePassword,
                       decoration: InputDecoration(
                           errorText: error ? errorText : null,
-                          hintText: '${AppLocalizations.of(context)?.oldPassword}',
+                          hintText:
+                              '${AppLocalizations.of(context)?.oldPassword}',
                           hintStyle: const TextStyle(color: kTextFieldColor),
                           focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: kGreenColor)),
@@ -86,7 +87,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       onChanged: (value) {
                         setState(() {
                           // Check password
-                          if (value.isEmpty || Validate.checkInvalidateNewPassword(value)) {
+                          if (value.isEmpty ||
+                              Validate.checkInvalidateNewPassword(value)) {
                             error = true;
                             errorText = value.isEmpty
                                 ? '${AppLocalizations.of(context)?.passwordCanNotBeBlank}'
@@ -103,8 +105,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       keyboardType: TextInputType.text,
                       obscureText: obscureNewPassword,
                       decoration: InputDecoration(
-                          errorText: errorNewPassword ? errorNewPasswordText : null,
-                          hintText: '${AppLocalizations.of(context)?.newPassword}',
+                          errorText:
+                              errorNewPassword ? errorNewPasswordText : null,
+                          hintText:
+                              '${AppLocalizations.of(context)?.newPassword}',
                           hintStyle: const TextStyle(color: kTextFieldColor),
                           focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: kGreenColor)),
@@ -126,7 +130,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       onChanged: (value) {
                         setState(() {
                           // Check password
-                          if (value.isEmpty || Validate.checkInvalidateNewPassword(value)) {
+                          if (value.isEmpty ||
+                              Validate.checkInvalidateNewPassword(value)) {
                             errorNewPassword = true;
                             errorNewPasswordText = value.isEmpty
                                 ? '${AppLocalizations.of(context)?.passwordCanNotBeBlank}'
@@ -143,15 +148,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       keyboardType: TextInputType.text,
                       obscureText: obscureRepeatPassword,
                       decoration: InputDecoration(
-                          errorText: errorConfirmPassword ? errorComFirmPasswordText : null,
-                          hintText: '${AppLocalizations.of(context)?.repeatPassword}',
+                          errorText: errorConfirmPassword
+                              ? errorComFirmPasswordText
+                              : null,
+                          hintText:
+                              '${AppLocalizations.of(context)?.repeatPassword}',
                           hintStyle: const TextStyle(color: kTextFieldColor),
                           focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: kGreenColor)),
                           suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  obscureRepeatPassword = !obscureRepeatPassword;
+                                  obscureRepeatPassword =
+                                      !obscureRepeatPassword;
                                 });
                               },
                               icon: obscureRepeatPassword
@@ -184,7 +193,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               GestureDetector(
                 onTap: () {},
                 child: Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.02),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -192,48 +202,53 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         onPressed: () async {
                           String oldPassword = textPasswordController.text;
                           String newPassword = textNewPasswordController.text;
-                          String confirmPassword = textConfirmPasswordController.text;
-                          final changPassword = await _changePasswordViewModel.changePassword(
-                              oldPassword, newPassword);
+                          String confirmPassword =
+                              textConfirmPasswordController.text;
+                          final changPassword = await _changePasswordViewModel
+                              .changePassword(oldPassword, newPassword);
                           if (oldPassword.isNotEmpty ||
                               newPassword.isNotEmpty ||
                               confirmPassword.isNotEmpty) {
                             if (changPassword == true) {
-                              showTopSnackBar(
-                                Overlay.of(context),
-                                CustomSnackBar.error(
-                                    message:
-                                        '${AppLocalizations.of(context)?.changePasswordSuccess}',
-                                    backgroundColor: kGreenColor),
-                              );
-                              // Navigator.pop(context);
-                              // ignore: use_build_context_synchronously
+                              if (context.mounted) {
+                                showTopSnackBar(
+                                  Overlay.of(context),
+                                  CustomSnackBar.error(
+                                      message:
+                                          '${AppLocalizations.of(context)?.changePasswordSuccess}',
+                                      backgroundColor: kGreenColor),
+                                );
+                              }
                             } else {
+                              if (context.mounted) {
+                                showTopSnackBar(
+                                  Overlay.of(context),
+                                  CustomSnackBar.error(
+                                    message:
+                                        '${AppLocalizations.of(context)?.theOldPasswordIsIncorrect}',
+                                    backgroundColor: kRedColor,
+                                  ),
+                                );
+                              }
+                            }
+                          } else {
+                            if (context.mounted) {
                               showTopSnackBar(
                                 Overlay.of(context),
                                 CustomSnackBar.error(
                                   message:
-                                      '${AppLocalizations.of(context)?.theOldPasswordIsIncorrect}',
+                                      '${AppLocalizations.of(context)?.pleaseEnterFullInformation}',
                                   backgroundColor: kRedColor,
                                 ),
                               );
-                              // Navigator.pop(context);
                             }
-                          } else {
-                            showTopSnackBar(
-                              Overlay.of(context),
-                              CustomSnackBar.error(
-                                message:
-                                    '${AppLocalizations.of(context)?.pleaseEnterFullInformation}',
-                                backgroundColor: kRedColor,
-                              ),
-                            );
                           }
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(kGreenColor),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(kGreenColor),
                         ),
-                        child:  Text('${AppLocalizations.of(context)?.save}'),
+                        child: Text('${AppLocalizations.of(context)?.save}'),
                       ),
                       const SizedBox(width: 40),
                       ElevatedButton(
@@ -241,9 +256,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           Navigator.pop(context);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(kRedColor),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(kRedColor),
                         ),
-                        child:Text('${AppLocalizations.of(context)?.close}'),
+                        child: Text('${AppLocalizations.of(context)?.close}'),
                       ),
                     ],
                   ),

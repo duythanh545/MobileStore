@@ -1,4 +1,3 @@
-import 'package:mobile_store/src/features/login/bloc/login_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LoginState {}
@@ -13,8 +12,8 @@ class SuccessLoginState extends LoginState {
   SuccessLoginState(this.onLoginState, this.isVerified);
 
   //Save data login in shared preferences
-  void saveLoginState(
-      String? email, String? password, String? token, int? id, bool? isRemember) async {
+  void saveLoginState(String? email, String? password, String? token, int? id,
+      bool? isRemember) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('email', email!);
     preferences.setString('token', token!);
@@ -23,7 +22,6 @@ class SuccessLoginState extends LoginState {
     preferences.setBool('isRemember', isRemember!);
   }
 }
-
 
 //Failed state login
 class ErrorLoginState extends LoginState {

@@ -15,7 +15,7 @@ class DetailProductBloc {
   //get event product detail
   Future<void> getDetailProduct(GetDetailProductEvent event) async {
     try {
-      final ProductDTO products = await DetailProductService.getDetailProductService(event.id);
+      final ProductDTO? products = await DetailProductService.getDetailProductService(event.id);
 
       if (products != null) {
         _productStateSubject.sink.add(ProductLoadedState(products));

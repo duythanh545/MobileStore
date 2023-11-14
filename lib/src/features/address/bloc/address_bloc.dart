@@ -76,7 +76,7 @@ class AddressBloc {
 //get id address
   Future<void> getIdAddressEvent(AddressEvent event) async {
     if (event is GetIdAddressEvent) {
-      final Address address = await AddressService.getIdAddressService(event.idAddress);
+      final Address? address = await AddressService.getIdAddressService(event.idAddress);
 
       if (address != null) {
         _addressStateSubject.sink.add(SuccessGetIdAddressState(address));

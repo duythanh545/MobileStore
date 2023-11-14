@@ -35,7 +35,6 @@ class _ReviewProductState extends State<ReviewProduct> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getReviewData(page);
   }
@@ -183,7 +182,7 @@ class _ReviewProductState extends State<ReviewProduct> {
                 shrinkWrap: true,
               ),
               (page == (snapshot.data?.totalPages)! - 1)
-                  ? SizedBox.shrink()
+                  ? const SizedBox.shrink()
                   : InkWell(
                       onTap: () {
                         Get.to(ExtendedReview(productId: widget.productId,));

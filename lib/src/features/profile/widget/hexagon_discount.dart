@@ -33,7 +33,7 @@ class HexagonPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Color.fromARGB(255, 252, 185, 61)
+      ..color = const Color.fromARGB(255, 252, 185, 61)
       ..style = PaintingStyle.fill;
 
     final double radius = size.height / 2;

@@ -168,12 +168,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         email, password, fullName);
 
                     if (signUpStatus == true) {
-                      showTopSnackBar(
-                        Overlay.of(context),
-                        const CustomSnackBar.success(
-                          message: 'Register success',
-                        ),
-                      );
+                      if (context.mounted) {
+                        showTopSnackBar(
+                          Overlay.of(context),
+                          const CustomSnackBar.success(
+                            message: 'Register success',
+                          ),
+                        );
+                      }
                       // ignore: use_build_context_synchronously
                       Navigator.pushReplacement(
                         context,
@@ -182,13 +184,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       );
                     } else {
-                      showTopSnackBar(
-                        Overlay.of(context),
-                        const CustomSnackBar.error(
-                          message: 'Email already exists',
-                          backgroundColor: Colors.red,
-                        ),
-                      );
+                      if (context.mounted) {
+                        showTopSnackBar(
+                          Overlay.of(context),
+                          const CustomSnackBar.error(
+                            message: 'Email already exists',
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
                     }
                   },
                   child: PrimaryButton(

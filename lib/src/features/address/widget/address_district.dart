@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_store/src/core/model/district.dart';
 
 import '../view_model/address_view_model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class DistrictForm extends StatefulWidget {
   String? provinceId;
   District? selectedDistrict;
@@ -10,17 +11,19 @@ class DistrictForm extends StatefulWidget {
   Function(District?) onDistrictChanged;
 
   DistrictForm({
+    super.key,
     required this.provinceId,
     required this.selectedDistrict,
     required this.onDistrictChanged,
   });
 
   @override
-  _DistrictDropdownState createState() => _DistrictDropdownState();
+  State<DistrictForm> createState() => _DistrictDropdownState();
 }
 
 class _DistrictDropdownState extends State<DistrictForm> {
   final AddressViewModel _addressViewModel = AddressViewModel();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<District>>(
@@ -28,19 +31,21 @@ class _DistrictDropdownState extends State<DistrictForm> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final List<District> districts = snapshot.data!;
-          final List<String> districtNames =
-              districts.map((district) => district.district_name ?? "").toList();
+          final List<String> districtNames = districts
+              .map((district) => district.district_name ?? "")
+              .toList();
           return DropdownButton<String>(
             menuMaxHeight: MediaQuery.of(context).size.height * 0.5,
             hint: Text('${AppLocalizations.of(context)?.district}'),
             value: widget.selectedDistrict?.district_name,
             onChanged: (name) {
               setState(() {
-                widget.selectedDistrict =
-                    districts.firstWhere((district) => district.district_name == name);
+                widget.selectedDistrict = districts
+                    .firstWhere((district) => district.district_name == name);
               });
 
-              if (widget.selectedDistrict != null && widget.selectedDistrict is District) {
+              if (widget.selectedDistrict != null &&
+                  widget.selectedDistrict is District) {
                 setState(() {
                   widget.onDistrictChanged(widget.selectedDistrict);
                 });

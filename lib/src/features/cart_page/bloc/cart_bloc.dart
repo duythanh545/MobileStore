@@ -58,7 +58,7 @@ class GetDataCartBloc {
       ProductDetailCart productDetailCart = getUser.cartBox?.getAt(i);
       final productResult =
           await DetailProductService.getDetailProductService(productDetailCart.productID);
-      listTemp.add(productResult);
+      listTemp.add(productResult!);
     }
 
     if (listTemp != []) {

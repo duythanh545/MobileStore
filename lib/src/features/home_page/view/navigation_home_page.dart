@@ -4,8 +4,8 @@ import 'package:mobile_store/src/constant/color/color.dart';
 import 'package:mobile_store/src/core/network/network_manager.dart';
 import 'package:mobile_store/src/features/cart_page/view/cart_page.dart';
 import 'package:mobile_store/src/features/home_page/view/home_page.dart';
-import 'package:mobile_store/src/features/login/bloc/login_state.dart';
 import 'package:mobile_store/src/features/profile/view/profile_page.dart';
+
 import '../../login/bloc/login_bloc.dart';
 import '../../login/view/not_login.dart';
 
@@ -39,21 +39,15 @@ class _NavigationHomePageState extends State<NavigationHomePage> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print(successLoginState.isVerified);
-  }
-
-  @override
   Widget build(BuildContext context) {
     bool checkInternetConnection =
         _networkController.connectionType.value == "No Internet Connection";
     return checkInternetConnection == false
         ? Scaffold(
-            body: (successLoginState.onLoginState && successLoginState.isVerified)
-                ? navigationLoginScreen()[indexScreen]
-                : navigationLogoutScreen()[indexScreen],
+            body:
+                (successLoginState.onLoginState && successLoginState.isVerified)
+                    ? navigationLoginScreen()[indexScreen]
+                    : navigationLogoutScreen()[indexScreen],
             bottomNavigationBar: NavigationBar(
               height: MediaQuery.of(context).size.height * 0.07,
               onDestinationSelected: (value) => setState(() {

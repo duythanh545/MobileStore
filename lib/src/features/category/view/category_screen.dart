@@ -35,13 +35,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
       CustomPopupMenuController();
   CustomPopupMenuController pricePopupMenuController =
       CustomPopupMenuController();
+
   List<String> priceRange(BuildContext context) => [
-    '${AppLocalizations.of(context)?.under} 5${AppLocalizations.of(context)?.m}',
-    '5${AppLocalizations.of(context)?.m} - 10${AppLocalizations.of(context)?.m}',
-    '10${AppLocalizations.of(context)?.m} - 20${AppLocalizations.of(context)?.m}',
-    '20${AppLocalizations.of(context)?.m} - 30${AppLocalizations.of(context)?.m}',
-    '${AppLocalizations.of(context)?.over} 30${AppLocalizations.of(context)?.m}'
-  ];
+        '${AppLocalizations.of(context)?.under} 5${AppLocalizations.of(context)?.m}',
+        '5${AppLocalizations.of(context)?.m} - 10${AppLocalizations.of(context)?.m}',
+        '10${AppLocalizations.of(context)?.m} - 20${AppLocalizations.of(context)?.m}',
+        '20${AppLocalizations.of(context)?.m} - 30${AppLocalizations.of(context)?.m}',
+        '${AppLocalizations.of(context)?.over} 30${AppLocalizations.of(context)?.m}'
+      ];
 
   List<ProductFilter> products = [];
   int currentPage = 0;
@@ -58,7 +59,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getDataManufacturer();
     _getDataProduct(widget.categoryID, currentPage);
@@ -72,28 +72,29 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   Future<void> fetch() async {
     if (currentPage < (categoryFilterResponse!.totalPages! - 1)) {
-      try {
-        setState(() {
-          currentPage++;
-          isLoad = false;
-          _getDataProduct(widget.categoryID, currentPage);
-        });
-      } catch (e) {
-        print(e);
-      }
+      setState(() {
+        currentPage++;
+        isLoad = false;
+        _getDataProduct(widget.categoryID, currentPage);
+      });
     }
   }
 
   _getDataProduct(int categoryId, int page) async {
     categoryFilterResponse = await categoryViewModel.categoryFilterViewModel(
-        manufacturerId, widget.categoryID, lowerPrice, higherPrice, page, limit);
+        manufacturerId,
+        widget.categoryID,
+        lowerPrice,
+        higherPrice,
+        page,
+        limit);
     products += await categoryFilterResponse?.contents ?? [];
-    print(categoryFilterResponse?.contents?.length);
   }
 
   _getDataManufacturer() async {
     manufacturerList =
-        await getManufacturerViewModel.getManufacturerViewModel(no, limit) ?? [];
+        await getManufacturerViewModel.getManufacturerViewModel(no, limit) ??
+            [];
     setState(() {});
   }
 
@@ -117,24 +118,32 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   horizontal: MediaQuery.of(context).size.width * 0.02),
               child: Row(
                 children: [
-                  productFilterBar(manufacturerName ?? '${AppLocalizations.of(context)?.manufacturer}',
-                      manufacturerMenuItems, manufacturerPopupMenuController),
+                  productFilterBar(
+                      manufacturerName ??
+                          '${AppLocalizations.of(context)?.manufacturer}',
+                      manufacturerMenuItems,
+                      manufacturerPopupMenuController),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   productFilterBar(
                       (priceFilterIndex == null)
                           ? '${AppLocalizations.of(context)?.priceRange}'
                           : priceRange(context)[priceFilterIndex!],
-
                       priceMenuItems,
                       pricePopupMenuController)
                 ],
               ),
             ),
             FutureBuilder(
-              future: categoryViewModel.categoryFilterViewModel(manufacturerId,
-                  widget.categoryID, lowerPrice, higherPrice, currentPage, limit),
+              future: categoryViewModel.categoryFilterViewModel(
+                  manufacturerId,
+                  widget.categoryID,
+                  lowerPrice,
+                  higherPrice,
+                  currentPage,
+                  limit),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting && isLoad) {
+                if (snapshot.connectionState == ConnectionState.waiting &&
+                    isLoad) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
                   return productFilterGridViewDisplay();
@@ -160,8 +169,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         child: GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio:
-                MediaQuery.of(context).devicePixelRatio * 0.25,
+            childAspectRatio: MediaQuery.of(context).devicePixelRatio * 0.25,
             crossAxisCount: 2,
             crossAxisSpacing: 5.0,
             mainAxisSpacing: 5.0,
@@ -220,9 +228,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  Widget productFilterBar(
-      String title,
-      Widget Function() menuItem,
+  Widget productFilterBar(String title, Widget Function() menuItem,
       CustomPopupMenuController customPopupMenuController) {
     return CustomPopupMenu(
         controller: customPopupMenuController,
@@ -233,7 +239,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
         pressType: PressType.singleClick,
         child: Container(
           height: MediaQuery.of(context).size.height * 0.04,
-
           decoration: BoxDecoration(
               border: Border.all(), borderRadius: BorderRadius.circular(5)),
           child: Row(
@@ -242,7 +247,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.02),
-                child: Text(title,),
+                child: Text(
+                  title,
+                ),
               ),
               const Icon(Icons.arrow_drop_down_outlined),
             ],
@@ -385,7 +392,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 setState(() {});
                 _getDataProduct(widget.categoryID, currentPage);
               }
-              print('$lowerPrice - $higherPrice - $priceFilterIndex');
 
               pricePopupMenuController.hideMenu();
             },

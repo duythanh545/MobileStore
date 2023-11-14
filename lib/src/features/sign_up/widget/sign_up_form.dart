@@ -64,7 +64,7 @@ class CheckBoxSignIn extends StatefulWidget {
   const CheckBoxSignIn({super.key, required this.text, required this.isCheck});
 
   @override
-  _CheckBoxSignInState createState() => _CheckBoxSignInState();
+  State<CheckBoxSignIn>  createState() => _CheckBoxSignInState();
 }
 
 class _CheckBoxSignInState extends State<CheckBoxSignIn> {

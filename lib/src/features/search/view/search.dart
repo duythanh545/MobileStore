@@ -115,7 +115,7 @@ class _SearchState extends State<Search> {
                 ),
               ),
               const SizedBox(height: 20),
-              BuildUI(context)
+              buildUI(context)
             ],
           ),
         ),
@@ -124,7 +124,7 @@ class _SearchState extends State<Search> {
   }
 
 
-  Widget BuildUI(content) {
+  Widget buildUI(content) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.65,
       child: Expanded(

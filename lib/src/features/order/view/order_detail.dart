@@ -23,7 +23,9 @@ class OrderDetail extends StatefulWidget {
   final int? idOrder;
 
   final DateTime receiveDate;
-  const OrderDetail({required this.idOrder, super.key, required this.receiveDate});
+
+  const OrderDetail(
+      {required this.idOrder, super.key, required this.receiveDate});
 
   @override
   State<OrderDetail> createState() => _OrderDetailState();
@@ -321,24 +323,32 @@ class _OrderDetailState extends State<OrderDetail> {
             for (int i = 0; i < orderProductDTOList!.length; i++) {
               ProductDTO productDTO = await _detailProductViewModel
                   .getDetailProduct(orderProductDTOList[i].id ?? 0);
-              int status = _cartViewModel.addToCart(context,
-                  orderProductDTOList[i].memory,
-                  orderProductDTOList[i].color, productDTO);
+              int status = (context.mounted)
+                  ? _cartViewModel.addToCart(
+                      context,
+                      orderProductDTOList[i].memory,
+                      orderProductDTOList[i].color,
+                      productDTO)
+                  : 0;
               if (status == StatusAddToCart.maximumInStock.index) {
                 statusNotification = StatusAddToCart.maximumInStock.index;
               }
             }
             if (statusNotification == StatusAddToCart.maximumInStock.index) {
-              showTopSnackBar(
-                  Overlay.of(context),
-                  const CustomSnackBar.info(
-                      message:
-                          'Add to cart successfully but some product has maximum quantity'));
+              if (context.mounted) {
+                showTopSnackBar(
+                    Overlay.of(context),
+                    const CustomSnackBar.info(
+                        message:
+                            'Add to cart successfully but some product has maximum quantity'));
+              }
             } else {
-              showTopSnackBar(
-                  Overlay.of(context),
-                  const CustomSnackBar.success(
-                      message: 'Add to cart successfully'));
+              if (context.mounted) {
+                showTopSnackBar(
+                    Overlay.of(context),
+                    const CustomSnackBar.success(
+                        message: 'Add to cart successfully'));
+              }
             }
             setState(() {
               indexScreen = 1;
@@ -365,19 +375,24 @@ class _OrderDetailState extends State<OrderDetail> {
           onTap: () async {
             bool? isCancel = await _cancelOrderViewModel
                 .cancelOrderViewModel(widget.idOrder ?? 0);
-            print('view $isCancel');
             if (isCancel != null && isCancel) {
-              showTopSnackBar(
-                  Overlay.of(context),
-                  const CustomSnackBar.success(
-                      message: 'Success cancel order'));
+              if (context.mounted) {
+                showTopSnackBar(
+                    Overlay.of(context),
+                    const CustomSnackBar.success(
+                        message: 'Success cancel order'));
+              }
               setState(() {
                 indexScreen = 0;
                 Get.offAll(const NavigationHomePage());
               });
             } else {
-              showTopSnackBar(Overlay.of(context),
-                  const CustomSnackBar.error(message: 'Can not cancel order'));
+              if (context.mounted) {
+                showTopSnackBar(
+                    Overlay.of(context),
+                    const CustomSnackBar.error(
+                        message: 'Can not cancel order'));
+              }
             }
           },
           child: Container(

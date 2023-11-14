@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -51,7 +49,8 @@ class _OrderState extends State<OrderView> {
     return NotificationListener<ScrollNotification>(
       onNotification: (scrollNotification) {
         if (!isLoading &&
-            scrollNotification.metrics.pixels == scrollNotification.metrics.maxScrollExtent) {
+            scrollNotification.metrics.pixels ==
+                scrollNotification.metrics.maxScrollExtent) {
           _loadData(currentPage);
           return true;
         }
@@ -73,19 +72,22 @@ class _OrderState extends State<OrderView> {
                     "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
 
                 return Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.015),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.015),
                   child: Row(
                     children: [
                       Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: kDarkGreyColor, width: 2.0, style: BorderStyle.solid),
+                                color: kDarkGreyColor,
+                                width: 2.0,
+                                style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           height: MediaQuery.of(context).size.height * 0.11,
                           child: CachedNetworkImage(
-                              imageUrl: ApiImage().generateImageUrl(order.productOrderDTO!.image!),
+                              imageUrl: ApiImage().generateImageUrl(
+                                  order.productOrderDTO!.image!),
                               height: MediaQuery.of(context).size.height * 0.8,
                               width: MediaQuery.of(context).size.width * 0.31)),
                       SizedBox(
@@ -178,7 +180,8 @@ class _OrderState extends State<OrderView> {
                                   ),
                                   Container(
                                     color: kGreenColor,
-                                    width: MediaQuery.of(context).size.width * 0.15,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.15,
                                     child: InkWell(
                                       onTap: () {
                                         Navigator.push(

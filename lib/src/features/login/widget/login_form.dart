@@ -50,7 +50,7 @@ class _BuildInputFormLogInState extends State<BuildInputFormLogIn> {
 }
 
 class BuildInputFormPassword extends StatefulWidget {
-  BuildInputFormPassword({
+  const BuildInputFormPassword({
     Key? key,
     required this.hint,
     required this.obscure,
@@ -59,7 +59,7 @@ class BuildInputFormPassword extends StatefulWidget {
   }) : super(key: key);
   final TextEditingController textController;
   final String hint;
-  late final bool obscure;
+  final bool obscure;
   final Widget function;
 
   @override

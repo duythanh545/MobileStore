@@ -6,8 +6,6 @@ import '../../../api/api_service.dart';
 class ProfileService {
   static Future<List<Address>> getAddressService() async {
     List<Address> address = await ApiService(dio.Dio()).getAddress(auth: 'Bearer ${getUser.token}');
-    address.forEach((response) {});
-
     return address;
   }
 }

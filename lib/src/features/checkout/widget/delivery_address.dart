@@ -17,46 +17,44 @@ class DeliveryAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.location_on,
-                color: Colors.red,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(
+              Icons.location_on,
+              color: Colors.red,
+            ),
+            const SizedBox(width: 8.0),
+            Text(
+              AppLocalizations.of(context)!.deliveryAddress,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(width: 8.0),
-              Text(
-                AppLocalizations.of(context)!.deliveryAddress,
+            ),
+          ],
+        ),
+        const SizedBox(height: 16.0),
+        RichText(
+          text: TextSpan(
+            text: name,
+            style: const TextStyle(
+              color: kBlackColor,
+              fontSize: 16.0,
+            ),
+            children: [
+              TextSpan(
+                text: ' | $phone\n$address',
                 style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  color: kGreyColor,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 16.0),
-          RichText(
-            text: TextSpan(
-              text: name,
-              style: const TextStyle(
-                color: kBlackColor,
-                fontSize: 16.0,
-              ),
-              children: [
-                TextSpan(
-                  text: ' | $phone\n$address',
-                  style: const TextStyle(
-                    color: kGreyColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

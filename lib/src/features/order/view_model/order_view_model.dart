@@ -70,7 +70,6 @@ class CancelOrderViewModel {
         isCancel = false;
       }
     });
-    print('view model $isCancel');
     return isCancel;
   }
 }

@@ -27,21 +27,18 @@ class _VerifiedEmailState extends State<VerifiedEmail> {
   bool resentEmail = false;
 
   _sendEmail() async {
-    try {
-      String? email = getUser.email;
-      bool isSend = await verifiedEmailViewModel.sendEmail(email!);
-      if (isSend == false) {
+    String? email = getUser.email;
+    bool isSend = await verifiedEmailViewModel.sendEmail(email!);
+    if (isSend == false) {
+      if (context.mounted) {
         showTopSnackBar(Overlay.of(context),
             const CustomSnackBar.error(message: 'Can not send OTP'));
       }
-    } catch (e) {
-      print('Send email error: $e');
     }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _sendEmail();
   }
@@ -59,7 +56,6 @@ class _VerifiedEmailState extends State<VerifiedEmail> {
                 horizontal: MediaQuery.of(context).size.width * 0.05),
             child: Column(
               children: [
-           
                 Padding(
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.04),
@@ -112,7 +108,7 @@ class _VerifiedEmailState extends State<VerifiedEmail> {
                                 });
                                 countdownController.restart();
                               },
-                              child: Text('Press here'),
+                              child: const Text('Press here'),
                             )
                           ])
                     : Countdown(

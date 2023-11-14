@@ -16,7 +16,7 @@ class OrderService {
   }
 
 //get order detail
-  static Future<OrderDetailDTO> getOrderDetailService(int? id) async {
+  static Future<OrderDetailDTO?> getOrderDetailService(int? id) async {
     OrderDetailDTO response =
         await ApiService(Dio()).getOrderDetail("Bearer ${getUser.token}", id);
 

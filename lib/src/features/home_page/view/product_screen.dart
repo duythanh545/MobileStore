@@ -110,7 +110,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.28,
                       child: CachedNetworkImage(
-                        imageUrl: ApiImage().generateImageUrl('$logo'),
+                        imageUrl: ApiImage().generateImageUrl(logo),
                         height: 20,
                       ),
                     ),

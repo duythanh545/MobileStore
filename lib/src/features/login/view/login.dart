@@ -48,9 +48,8 @@ class _LogInScreenState extends State<LogInScreen> {
   void initState() {
     super.initState();
     _loginViewModel = LoginViewModel();
-    print('${getUser.email} - ${getUser.password} - ${getUser.isRemember}');
     isRemember = getUser.isRemember ?? false;
-    if(isRemember){
+    if (isRemember) {
       textEmailController.text = getUser.email ?? '';
       textPasswordController.text = getUser.password ?? '';
     }
@@ -110,7 +109,10 @@ class _LogInScreenState extends State<LogInScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const ForgotPasswordScreen(),),
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const ForgotPasswordScreen(),
+                            ),
                           );
                         },
                         child: Text(
@@ -144,32 +146,40 @@ class _LogInScreenState extends State<LogInScreen> {
 
                       if (email.isNotEmpty && password.isNotEmpty) {
                         if (loginStatus == LoginStatusEnum.successLogin.index) {
-                          showTopSnackBar(
-                              Overlay.of(context),
-                              const CustomSnackBar.success(
-                                  message: 'Login success'));
+                          if (context.mounted) {
+                            showTopSnackBar(
+                                Overlay.of(context),
+                                const CustomSnackBar.success(
+                                    message: 'Login success'));
+                          }
                           indexScreen = 0;
                           navigationHomePage();
                         } else if (loginStatus ==
                             LoginStatusEnum.successLoginWithoutVerified.index) {
-                          showTopSnackBar(
-                              Overlay.of(context),
-                              const CustomSnackBar.info(
-                                  message:
-                                      'Please enter your otp number that was sent via email'));
+                          if (context.mounted) {
+                            showTopSnackBar(
+                                Overlay.of(context),
+                                const CustomSnackBar.info(
+                                    message:
+                                        'Please enter your otp number that was sent via email'));
+                          }
                           indexScreen = 0;
                           navigationVerifiedPage();
                         } else {
+                          if (context.mounted) {
+                            showTopSnackBar(
+                                Overlay.of(context),
+                                const CustomSnackBar.error(
+                                    message: 'Login failed'));
+                          }
+                        }
+                      } else {
+                        if (context.mounted) {
                           showTopSnackBar(
                               Overlay.of(context),
                               const CustomSnackBar.error(
-                                  message: 'Login failed'));
+                                  message: 'Please fill in all fields'));
                         }
-                      } else {
-                        showTopSnackBar(
-                            Overlay.of(context),
-                            const CustomSnackBar.error(
-                                message: 'Please fill in all fields'));
                       }
                     },
                     child: PrimaryButton(
@@ -247,7 +257,8 @@ class _LogInScreenState extends State<LogInScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => SignUpScreen()));
+                                      builder: (context) =>
+                                          const SignUpScreen()));
                             },
                             child: Text(
                               AppLocalizations.of(context)!.signUp,

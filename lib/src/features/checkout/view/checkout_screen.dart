@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_store/src/core/model/address.dart';
 import 'package:mobile_store/src/core/model/order_product_dto.dart';
@@ -24,7 +22,6 @@ import '../view_model/checkout_view_model.dart';
 import '../widget/checkout_list_product.dart';
 import '../widget/delivery_address.dart';
 import '../widget/payment.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({
@@ -59,7 +56,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
     final selectedAddressCubit = context.read<SelectedAddressCubit>();
     final selectedAddressId = selectedAddressCubit.state;
 
-    final promotionFuture = _promotionViewModel.getIdPromotion(selectedPromotionId);
+    final promotionFuture =
+        _promotionViewModel.getIdPromotion(selectedPromotionId);
     final addressFuture = _addressViewModel.getIdAddress(selectedAddressId);
     final cartFuture = _cartViewModel.cartViewModel();
 
@@ -97,7 +95,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
         appBar: appBarWidget(context, true),
         body: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               // Check if address is not null
               DeliveryAddress(
                 name: '${address.nameReceiver}',
@@ -122,7 +121,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   });
                 },
               ),
-              Text("Total Amount: ${NumberFormat('#,###.###').format(totalAmount)} VND"),
+              Text(
+                  "Total Amount: ${NumberFormat('#,###.###').format(totalAmount)} VND"),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,7 +135,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   ),
                   if (promotion.discountDTO != null)
-                    if ((totalAmount! * (promotion.discountDTO! * 0.01)) > promotion.maxGetDTO!)
+                    if ((totalAmount! * (promotion.discountDTO! * 0.01)) >
+                        promotion.maxGetDTO!)
                       Text(
                         "${NumberFormat('#,###.###').format(promotion.maxGetDTO!)} VND ",
                       )
@@ -181,7 +182,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   ),
                   if (promotion.discountDTO != null)
-                    if ((totalAmount! * (promotion.discountDTO! * 0.01)) > promotion.maxGetDTO!)
+                    if ((totalAmount! * (promotion.discountDTO! * 0.01)) >
+                        promotion.maxGetDTO!)
                       Text(
                         "${NumberFormat('#,###.###').format(totalAmount! - promotion.maxGetDTO!)} VND ",
                         style: const TextStyle(
@@ -231,31 +233,39 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         height: 50.0,
                         child: ElevatedButton(
                           onPressed: () async {
-                            final createOrder = await _checkoutViewModel.checkout(
-                                idUser: getUser.idUser,
-                                idPromotion: promotion.id ?? 0,
-                                paymentMethodDTO: "$_paymentMethod",
-                                statusDTO: StatusDTO(id: 1, name: "Active"),
-                                orderProductDTOList: cartList,
-                                idAddress: address.id,
-                                receiveDate: formattedDate);
+                            final createOrder =
+                                await _checkoutViewModel.checkout(
+                                    idUser: getUser.idUser,
+                                    idPromotion: promotion.id ?? 0,
+                                    paymentMethodDTO: "$_paymentMethod",
+                                    statusDTO: StatusDTO(id: 1, name: "Active"),
+                                    orderProductDTOList: cartList,
+                                    idAddress: address.id,
+                                    receiveDate: formattedDate);
 
                             if (createOrder == true) {
-                              showTopSnackBar(
-                                Overlay.of(context),
-                                const CustomSnackBar.success(
-                                  message: 'Order success',
-                                ),
-                              );
+                              if(context.mounted){
+                                showTopSnackBar(
+                                  Overlay.of(context),
+                                  const CustomSnackBar.success(
+                                    message: 'Order success',
+                                  ),
+                                );
+                              }
 
                               // ignore: use_build_context_synchronously
                               await _cartViewModel.streamLengthCartList();
                               await _cartViewModel.streamPriceCartList();
                               setState(() {
                                 indexScreen = 0;
-                                context.read<SelectedPromotionCubit>().resetState();
-                                context.read<SelectedAddressCubit>().resetState();
-                                getUser.cartBox!.deleteAll(getUser.cartBox!.keys);
+                                context
+                                    .read<SelectedPromotionCubit>()
+                                    .resetState();
+                                context
+                                    .read<SelectedAddressCubit>()
+                                    .resetState();
+                                getUser.cartBox!
+                                    .deleteAll(getUser.cartBox!.keys);
                               });
                               Get.offAll(const NavigationHomePage());
                             } else {

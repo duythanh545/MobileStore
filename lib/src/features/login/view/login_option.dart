@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_store/src/constant/color/color.dart';
 
 class LoginOption extends StatelessWidget {
-  const LoginOption({Key? key});
+  const LoginOption({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +11,11 @@ class LoginOption extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         BuildButton(
-          icon: Icon(
-            Icons.facebook,
-            size: 50,
-          ),
+          icon: const Icon(Icons.facebook, size: 50),
           backgroundColor: kWhiteColor,
           borderRadius: BorderRadius.circular(50),
         ),
-        SizedBox(width: 30),
+        const SizedBox(width: 30),
         BuildButton(
           icon: Image.asset(
             'assets/icon/google_icon.jpg',
@@ -39,6 +36,7 @@ class BuildButton extends StatelessWidget {
   final BorderRadius borderRadius;
 
   const BuildButton({
+    super.key,
     required this.icon,
     required this.backgroundColor,
     required this.borderRadius,

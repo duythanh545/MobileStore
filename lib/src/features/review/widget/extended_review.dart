@@ -24,14 +24,13 @@ class _ExtendedReviewState extends State<ExtendedReview> {
   ReviewResponse? reviewResponse;
   List<ReviewDTOs> reviewList = [];
   int page = 0;
-  int limit = 9;
+  int limit = 10;
   bool flag = true;
   final ScrollController _scrollController = ScrollController();
   bool isLoading = true;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getReviewData(page);
     _scrollController.addListener(() {
@@ -154,7 +153,7 @@ class _ExtendedReviewState extends State<ExtendedReview> {
                     );
                   } else {
                     return Center(
-                      child: (page < (reviewResponse?.totalPages)! )
+                      child: (page < (reviewResponse?.totalPages)! - 1)
                           ? const CircularProgressIndicator()
                           : const Text('All review are shown'),
                     );

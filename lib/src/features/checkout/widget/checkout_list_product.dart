@@ -12,7 +12,7 @@ import '../../../core/model/product.dart';
 class CheckoutList extends StatefulWidget {
   final double? totalAmount;
   final Function(double?) totalAmountSelected;
-  CheckoutList({Key? key, required this.totalAmount, required this.totalAmountSelected})
+  const CheckoutList({Key? key, required this.totalAmount, required this.totalAmountSelected})
       : super(key: key);
 
   @override

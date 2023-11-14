@@ -1,13 +1,12 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dio/dio.dart' as dio;
+import 'package:http/http.dart' as http;
 import 'package:mobile_store/main.dart';
 import 'package:mobile_store/src/api/api_service.dart';
 import 'package:mobile_store/src/core/model/address.dart';
 import 'package:mobile_store/src/core/model/district.dart';
 import 'package:mobile_store/src/core/model/province.dart';
-import 'package:http/http.dart' as http;
 import 'package:mobile_store/src/core/model/ward.dart';
 import 'package:mobile_store/src/core/remote/request/address_request/address_change_request.dart';
 import 'package:mobile_store/src/core/remote/request/address_request/address_create_request.dart';
@@ -22,8 +21,9 @@ class AddressService {
     final json = jsonDecode(response.body);
     try {
       final List<dynamic> results = json['results'];
-      final List<Province> provinces =
-          results.map<Province>((province) => Province.fromJson(province)).toList();
+      final List<Province> provinces = results
+          .map<Province>((province) => Province.fromJson(province))
+          .toList();
 
       return provinces;
     } catch (e) {
@@ -39,8 +39,9 @@ class AddressService {
 
     try {
       final List<dynamic> results = json['results'];
-      final List<District> districts =
-          results.map<District>((district) => District.fromJson(district)).toList();
+      final List<District> districts = results
+          .map<District>((district) => District.fromJson(district))
+          .toList();
 
       return districts;
     } catch (e) {
@@ -56,7 +57,8 @@ class AddressService {
 
     try {
       final List<dynamic> results = json['results'];
-      final List<Ward> wards = results.map<Ward>((ward) => Ward.fromJson(ward)).toList();
+      final List<Ward> wards =
+          results.map<Ward>((ward) => Ward.fromJson(ward)).toList();
 
       return wards;
     } catch (e) {
@@ -65,8 +67,8 @@ class AddressService {
   }
 
 // call api create address
-  static Future<AddressResponse> createAddress(
-      String? location, String? type, String? phoneReceiver, String? nameReceiver) async {
+  static Future<AddressResponse> createAddress(String? location, String? type,
+      String? phoneReceiver, String? nameReceiver) async {
     AddressResponse response = await ApiService(dio.Dio()).createAddress(
         auth: "Bearer ${getUser.token!}",
         createAddress: AddressCreateRequest(
@@ -74,29 +76,32 @@ class AddressService {
             type: type,
             phoneReceiver: phoneReceiver,
             nameReceiver: nameReceiver));
-   
+
     return response;
   }
 
 // call api get address
   static Future<List<Address>> getAddressService() async {
-    List<Address> address = await ApiService(dio.Dio()).getAddress(auth: 'Bearer ${getUser.token}');
-    address.forEach((response) {});
-
+    List<Address> address =
+        await ApiService(dio.Dio()).getAddress(auth: 'Bearer ${getUser.token}');
     return address;
   }
 
 // call api get idAddress
-  static Future<Address> getIdAddressService(int? idAddress) async {
-    Address address =
-        await ApiService(dio.Dio()).getIdAddress(auth: 'Bearer ${getUser.token}', id: idAddress);
-
+  static Future<Address?> getIdAddressService(int? idAddress) async {
+    Address address = await ApiService(dio.Dio())
+        .getIdAddress(auth: 'Bearer ${getUser.token}', id: idAddress);
     return address;
   }
 
 // call api change address
-  static Future<AddressResponse> changeAddress(String? location, String? type,
-      String? phoneReceiver, String? nameReceiver, bool? defaults, int? id) async {
+  static Future<AddressResponse> changeAddress(
+      String? location,
+      String? type,
+      String? phoneReceiver,
+      String? nameReceiver,
+      bool? defaults,
+      int? id) async {
     AddressResponse response = await ApiService(dio.Dio()).changeAddress(
         auth: "Bearer ${getUser.token!}",
         id: id,
@@ -114,8 +119,8 @@ class AddressService {
   static Future<HttpResponse> deleteAddress(
     int? id,
   ) async {
-    HttpResponse response =
-        await ApiService(dio.Dio()).deleteAddress(auth: "Bearer ${getUser.token}", id: id!);
+    HttpResponse response = await ApiService(dio.Dio())
+        .deleteAddress(auth: "Bearer ${getUser.token}", id: id!);
 
     return response;
   }

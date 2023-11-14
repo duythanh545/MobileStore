@@ -1,7 +1,6 @@
 import '../../../core/model/order_product_dto.dart';
 import '../../../core/model/status_dto.dart';
 import '../bloc/checkout_bloc.dart';
-import 'dart:developer';
 
 class CheckoutViewModel {
   final CheckoutBloc _checkoutBloc = CheckoutBloc();
@@ -26,8 +25,6 @@ class CheckoutViewModel {
     );
     await _checkoutBloc.addEvent(createOrderPressedEvent);
     bool isCreateOrder = false;
-
-    print('viewmodel id: ${idPromotion}');
 
     await _checkoutBloc.checkoutStateStream.listen(
       (state) {

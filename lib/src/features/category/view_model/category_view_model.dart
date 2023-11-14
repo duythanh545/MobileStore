@@ -9,9 +9,13 @@ import '../../../core/model/manufacturer_dto.dart';
 class CategoryViewModel {
   final CategoryFilterBloc _categoryFilterBloc = CategoryFilterBloc();
 
-  Future<CategoryFilterResponse?> categoryFilterViewModel(int? manufacturerId,
-      int categoryId, int? lowerPrice, int? higherPrice, int no, int limit) async {
-
+  Future<CategoryFilterResponse?> categoryFilterViewModel(
+      int? manufacturerId,
+      int categoryId,
+      int? lowerPrice,
+      int? higherPrice,
+      int no,
+      int limit) async {
     CategoryFilterResponse? categoryFilterResponse;
     await _categoryFilterBloc.categoryFilter(CategoryFilterEvent(
         manufacturerId, categoryId, lowerPrice, higherPrice, no, limit));
@@ -36,17 +40,14 @@ class GetCategoryViewModel {
   Future<List<CategoriesDTO>?> getCategoryViewModel(int no, int limit) async {
     await getCategoryBloc.addEvent(GetCategoryEvent(no, limit));
 
-    try {
-      await getCategoryBloc.state.listen((state) {
-        if (state is SuccessGetCategoryState) {
-          categoryList = state.categoryList;
-        } else if (state is ErrorGetCategoryState) {
-          categoryList = null;
-        }
-      });
-    } catch (e) {
-      print(e);
-    }
+    await getCategoryBloc.state.listen((state) {
+      if (state is SuccessGetCategoryState) {
+        categoryList = state.categoryList;
+      } else if (state is ErrorGetCategoryState) {
+        categoryList = null;
+      }
+    });
+
     return categoryList;
   }
 }
@@ -59,17 +60,14 @@ class GetManufacturerViewModel {
       int no, int limit) async {
     await getManufacturerBloc.addEvent(GetManufacturerEvent(no, limit));
 
-    try {
-      await getManufacturerBloc.state.listen((state) {
-        if (state is SuccessGetManufacturerState) {
-          manufacturerList = state.manufacturerList;
-        } else if (state is ErrorGetManufacturerState) {
-          manufacturerList = null;
-        }
-      });
-    } catch (e) {
-      print(e);
-    }
+    await getManufacturerBloc.state.listen((state) {
+      if (state is SuccessGetManufacturerState) {
+        manufacturerList = state.manufacturerList;
+      } else if (state is ErrorGetManufacturerState) {
+        manufacturerList = null;
+      }
+    });
+
     return manufacturerList;
   }
 }

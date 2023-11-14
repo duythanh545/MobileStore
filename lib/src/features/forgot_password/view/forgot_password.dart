@@ -42,17 +42,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         .sendEmailForgotPasswordViewModel(emailSent);
     setState(() {});
     if (isSendEmail) {
-      showTopSnackBar(Overlay.of(context),
-          const CustomSnackBar.info(message: 'Otp that sent via email'));
+      if (context.mounted) {
+        showTopSnackBar(Overlay.of(context),
+            const CustomSnackBar.info(message: 'Otp that sent via email'));
+      }
     } else {
-      showTopSnackBar(
-          Overlay.of(context), CustomSnackBar.error(message: errorMessage));
+      if (context.mounted) {
+        showTopSnackBar(
+            Overlay.of(context), CustomSnackBar.error(message: errorMessage));
+      }
     }
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     textPasswordController.dispose();
     textOTPController.dispose();
@@ -227,16 +230,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     await _forgotPasswordViewModel.forgotPasswordViewModel(
                         textOTPController.text, textPasswordController.text);
                 if (isChange) {
-                  showTopSnackBar(
-                      Overlay.of(context),
-                      const CustomSnackBar.success(
-                          message: 'Change password successfully'));
-                  Navigator.pop(context);
+                  if (context.mounted) {
+                    showTopSnackBar(
+                        Overlay.of(context),
+                        const CustomSnackBar.success(
+                            message: 'Change password successfully'));
+                    Navigator.pop(context);
+                  }
                 } else {
-                  showTopSnackBar(
-                      Overlay.of(context),
-                      const CustomSnackBar.error(
-                          message: 'Change password failed'));
+                  if (context.mounted) {
+                    showTopSnackBar(
+                        Overlay.of(context),
+                        const CustomSnackBar.error(
+                            message: 'Change password failed'));
+                  }
                 }
               } else {
                 showTopSnackBar(
@@ -268,7 +275,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ? 'Enter your email'
                         : 'Wrong email';
                   });
-                  print(errorTextSendEmail);
                 } else {
                   setState(() {
                     errorSendEmail = false;

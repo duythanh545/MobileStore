@@ -7,7 +7,7 @@ import '../../../api/api_service.dart';
 
 //Get api product
 class DetailProductService {
-  static Future<ProductDTO> getDetailProductService(int idProduct) async {
+  static Future<ProductDTO?> getDetailProductService(int idProduct) async {
     ProductDTO response = await ApiService(dio.Dio()).getDetailProduct(idProduct);
 
     return response;

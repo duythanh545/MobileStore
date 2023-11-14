@@ -20,6 +20,7 @@ class _PromotionState extends State<Promotion> {
   int limit = 8;
   bool isLoading = false;
   final formatPrice = NumberFormat("#,###.###", "en_US");
+
   @override
   void initState() {
     _loadData(currentPage);
@@ -45,7 +46,8 @@ class _PromotionState extends State<Promotion> {
     return NotificationListener<ScrollNotification>(
       onNotification: (scrollNotification) {
         if (!isLoading &&
-            scrollNotification.metrics.pixels == scrollNotification.metrics.maxScrollExtent) {
+            scrollNotification.metrics.pixels ==
+                scrollNotification.metrics.maxScrollExtent) {
           _loadData(currentPage);
           return true;
         }
@@ -64,8 +66,8 @@ class _PromotionState extends State<Promotion> {
                 final promotion = promotionList[index];
 
                 return Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.015),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.015),
                   child: ListTile(
                     leading: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -77,7 +79,7 @@ class _PromotionState extends State<Promotion> {
                       ],
                     ),
                     title: Text(
-                      '${promotion.discountDTO}% discount for orders under ${formatPrice.format(promotion.totalPurchaseDTO)}\ VND, for customers who bought ${formatPrice.format(promotion.maxGetDTO)}\VND ',
+                      '${promotion.discountDTO}% discount for orders under ${formatPrice.format(promotion.totalPurchaseDTO)} VND, for customers who bought ${formatPrice.format(promotion.maxGetDTO)}VND ',
                     ),
                   ),
                 );

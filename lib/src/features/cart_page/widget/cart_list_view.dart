@@ -21,7 +21,8 @@ class CartListView extends StatefulWidget {
 }
 
 class _CartListViewState extends State<CartListView> {
-  final DetailProductViewModel detailProductViewModel = DetailProductViewModel();
+  final DetailProductViewModel detailProductViewModel =
+      DetailProductViewModel();
   final textCurrency = NumberFormat("#,###.###", "en_US");
   List<OrderProductDTO> cartList = [];
   CartViewModel cartViewModel = CartViewModel();
@@ -34,8 +35,8 @@ class _CartListViewState extends State<CartListView> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting && isReload) {
           return const Center(
-              child: CircularProgressIndicator(),
-              );
+            child: CircularProgressIndicator(),
+          );
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -55,13 +56,16 @@ class _CartListViewState extends State<CartListView> {
                           setState(() {});
                           await cartViewModel.streamLengthCartList();
                           await cartViewModel.streamPriceCartList();
-                          showTopSnackBar(
-                              Overlay.of(context),
-                              const CustomSnackBar.success(
-                                  message: 'Delete all items successfully'));
+                          if (context.mounted) {
+                            showTopSnackBar(
+                                Overlay.of(context),
+                                const CustomSnackBar.success(
+                                    message: 'Delete all items successfully'));
+                          }
                         },
-                        style:
-                            const ButtonStyle(backgroundColor: MaterialStatePropertyAll(kRedColor)),
+                        style: const ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(kRedColor)),
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.25,
                           child: const Row(
@@ -73,14 +77,15 @@ class _CartListViewState extends State<CartListView> {
                           ),
                         )),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.01),
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.01),
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: getUser.cartBox?.length,
                         itemBuilder: (context, index) {
-                          ProductDetailCart productDetailCart = getUser.cartBox?.getAt(index);
+                          ProductDetailCart productDetailCart =
+                              getUser.cartBox?.getAt(index);
                           ProductDTO productDTO = snapshot.data![index];
 
                           return cartItem(productDTO, productDetailCart, index);
@@ -104,11 +109,14 @@ class _CartListViewState extends State<CartListView> {
     );
   }
 
-  Widget cartItem(ProductDTO productDTO, ProductDetailCart productDetailCart, int index) {
+  Widget cartItem(
+      ProductDTO productDTO, ProductDetailCart productDetailCart, int index) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.005),
+      margin: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.height * 0.005),
       decoration: BoxDecoration(
-          border: Border.all(color: kDarkGreyColor), borderRadius: BorderRadius.circular(10)),
+          border: Border.all(color: kDarkGreyColor),
+          borderRadius: BorderRadius.circular(10)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -116,7 +124,8 @@ class _CartListViewState extends State<CartListView> {
             height: MediaQuery.of(context).size.width * 0.35,
             width: MediaQuery.of(context).size.width * 0.35,
             child: CachedNetworkImage(
-              imageUrl: ApiImage().generateImageUrl('${productDTO.imageDTOs?[0].name}'),
+              imageUrl: ApiImage()
+                  .generateImageUrl('${productDTO.imageDTOs?[0].name}'),
             ),
           ),
           Container(
@@ -157,7 +166,8 @@ class _CartListViewState extends State<CartListView> {
                               index,
                               ProductDetailCart(
                                   productID: productDetailCart.productID,
-                                  productQuantity: productDetailCart.productQuantity - 1,
+                                  productQuantity:
+                                      productDetailCart.productQuantity - 1,
                                   memory: productDetailCart.memory,
                                   color: productDetailCart.color,
                                   stock: productDetailCart.stock));
@@ -169,8 +179,12 @@ class _CartListViewState extends State<CartListView> {
                           setState(() {});
                           await cartViewModel.streamLengthCartList();
                           await cartViewModel.streamPriceCartList();
-                          showTopSnackBar(Overlay.of(context),
-                              const CustomSnackBar.success(message: 'Delete item successfully'));
+                          if (context.mounted) {
+                            showTopSnackBar(
+                                Overlay.of(context),
+                                const CustomSnackBar.success(
+                                    message: 'Delete item successfully'));
+                          }
                         }
                       },
                       child: Container(
@@ -188,16 +202,19 @@ class _CartListViewState extends State<CartListView> {
                       height: 25,
                       width: 40,
                       decoration: BoxDecoration(border: Border.all()),
-                      child: Center(child: Text('${productDetailCart.productQuantity}')),
+                      child: Center(
+                          child: Text('${productDetailCart.productQuantity}')),
                     ),
                     InkWell(
                       onTap: () async {
-                        if (productDetailCart.productQuantity < (productDetailCart.stock)!) {
+                        if (productDetailCart.productQuantity <
+                            (productDetailCart.stock)!) {
                           getUser.cartBox?.putAt(
                               index,
                               ProductDetailCart(
                                   productID: productDetailCart.productID,
-                                  productQuantity: productDetailCart.productQuantity + 1,
+                                  productQuantity:
+                                      productDetailCart.productQuantity + 1,
                                   memory: productDetailCart.memory,
                                   color: productDetailCart.color,
                                   stock: productDetailCart.stock));
@@ -205,8 +222,10 @@ class _CartListViewState extends State<CartListView> {
                           await cartViewModel.streamLengthCartList();
                           await cartViewModel.streamPriceCartList();
                         } else {
-                          showTopSnackBar(Overlay.of(context),
-                              const CustomSnackBar.info(message: 'Maximum number of products'));
+                          showTopSnackBar(
+                              Overlay.of(context),
+                              const CustomSnackBar.info(
+                                  message: 'Maximum number of products'));
                         }
                       },
                       child: Container(
@@ -227,8 +246,12 @@ class _CartListViewState extends State<CartListView> {
                           setState(() {});
                           await cartViewModel.streamLengthCartList();
                           await cartViewModel.streamPriceCartList();
-                          showTopSnackBar(Overlay.of(context),
-                              const CustomSnackBar.success(message: 'Delete item successfully'));
+                          if (context.mounted) {
+                            showTopSnackBar(
+                                Overlay.of(context),
+                                const CustomSnackBar.success(
+                                    message: 'Delete item successfully'));
+                          }
                         },
                         icon: const Icon(
                           Icons.delete,

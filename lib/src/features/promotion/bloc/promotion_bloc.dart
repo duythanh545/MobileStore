@@ -29,7 +29,7 @@ class PromotionBloc {
   //get id promotion
   Future<void> getIdPromotionEvent(PromotionEvent event) async {
     if (event is GetIdPromotionEvent) {
-      final PromotionDTO promotion =
+      final PromotionDTO? promotion =
           await PromotionService.getIdPromotionService(event.idPromotion);
 
       if (promotion != null) {

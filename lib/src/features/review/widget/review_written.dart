@@ -25,7 +25,7 @@ class _ReviewWrittenState extends State<ReviewWritten> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Write your review'),
-      content: Container(
+      content: SizedBox(
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.height * 0.3,
         child: Column(
@@ -68,26 +68,30 @@ class _ReviewWrittenState extends State<ReviewWritten> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
-                      if(rating > 0 && _reviewController.text != ''){
+                      if (rating > 0 && _reviewController.text != '') {
                         bool isSuccess =
                             await _reviewViewModel.createReviewViewModel(
                                 widget.productId,
                                 _reviewController.text,
                                 rating);
                         if (isSuccess) {
-                          showTopSnackBar(
-                              Overlay.of(context),
-                              const CustomSnackBar.success(
-                                  message: 'Thanks to review product'));
-                          context.read<DetailProductCubit>().reload();
-                          Navigator.pop(context);
+                          if (context.mounted) {
+                            showTopSnackBar(
+                                Overlay.of(context),
+                                const CustomSnackBar.success(
+                                    message: 'Thanks to review product'));
+                            context.read<DetailProductCubit>().reload();
+                            Navigator.pop(context);
+                          }
                         } else {
-                          showTopSnackBar(
-                              Overlay.of(context),
-                              const CustomSnackBar.error(
-                                  message: 'Failed to review product'));
+                          if (context.mounted) {
+                            showTopSnackBar(
+                                Overlay.of(context),
+                                const CustomSnackBar.error(
+                                    message: 'Failed to review product'));
+                          }
                         }
-                      }else{
+                      } else {
                         showTopSnackBar(
                             Overlay.of(context),
                             const CustomSnackBar.error(

@@ -4,16 +4,17 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mobile_store/src/features/review/view_model/review_view_model.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+
 import '../../../constant/color/color.dart';
 import '../../detail_product/bloc/detail_product_bloc.dart';
 
 class EditReview extends StatefulWidget {
   const EditReview(
       {Key? key,
-
       required this.reviewID,
       required this.rating,
-      required this.comment, required this.productID})
+      required this.comment,
+      required this.productID})
       : super(key: key);
   final int reviewID;
   final int productID;
@@ -31,7 +32,6 @@ class _EditReviewState extends State<EditReview> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     rating = widget.rating;
     _reviewController.text = widget.comment;
@@ -39,7 +39,6 @@ class _EditReviewState extends State<EditReview> {
 
   @override
   Widget build(BuildContext context) {
-
     return AlertDialog(
       title: const Text('Write your review'),
       content: SizedBox(
@@ -87,19 +86,26 @@ class _EditReviewState extends State<EditReview> {
                     onPressed: () async {
                       bool isSuccess =
                           await _reviewViewModel.editReviewViewModel(
-                              widget.reviewID, widget.productID, _reviewController.text, rating);
+                              widget.reviewID,
+                              widget.productID,
+                              _reviewController.text,
+                              rating);
                       if (isSuccess) {
-                        showTopSnackBar(
-                            Overlay.of(context),
-                            const CustomSnackBar.success(
-                                message: 'Edit review successful'));
-                        context.read<DetailProductCubit>().reload();
-                        Navigator.pop(context);
+                        if (context.mounted) {
+                          showTopSnackBar(
+                              Overlay.of(context),
+                              const CustomSnackBar.success(
+                                  message: 'Edit review successful'));
+                          context.read<DetailProductCubit>().reload();
+                          Navigator.pop(context);
+                        }
                       } else {
-                        showTopSnackBar(
-                            Overlay.of(context),
-                            const CustomSnackBar.error(
-                                message: 'Failed to edit review'));
+                        if (context.mounted) {
+                          showTopSnackBar(
+                              Overlay.of(context),
+                              const CustomSnackBar.error(
+                                  message: 'Failed to edit review'));
+                        }
                       }
                     },
                     style: ButtonStyle(
