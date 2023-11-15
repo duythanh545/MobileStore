@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_store/src/features/component/custom_app_bar.dart';
 import 'package:mobile_store/src/features/home_page/bloc/product_bloc.dart';
 import 'package:mobile_store/src/features/home_page/view/product_screen.dart';
-import 'package:mobile_store/src/features/component/custom_app_bar.dart';
-import 'carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,8 +24,10 @@ class _HomePageState extends State<HomePage> {
         },
         child: SingleChildScrollView(
           child: Column(children: [
-            const CarouselSliderBanner(),
-            ProductScreen(productBloc: productBloc),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: ProductScreen(productBloc: productBloc),
+            ),
           ]),
         ),
       ),
