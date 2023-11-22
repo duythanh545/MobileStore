@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_store/src/constant/color/color.dart';
 import 'package:mobile_store/src/features/component/primary_button.dart';
-import 'package:mobile_store/src/features/login/view/login_option.dart';
 import 'package:mobile_store/src/features/sign_up/bloc/sign_up_bloc.dart';
 import 'package:mobile_store/src/features/sign_up/widget/sign_up_form.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -109,6 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         });
                       },
                     ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     TextFormField(
                       controller: textConfirmPasswordController,
                       obscureText: obscure,
@@ -137,8 +137,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ]),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.02),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.02),
                   child: CheckBoxSignIn(
                       text: AppLocalizations.of(context)!
                           .agreeToTermAndConditions,
@@ -208,53 +208,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        children: [
-                          const Expanded(
-                            child: Divider(
-                              color: kGreyColor,
-                              height: 1.5,
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              AppLocalizations.of(context)!.or,
-                              style: subtitle.copyWith(
-                                color: kGreyColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                          const Expanded(
-                            child: Divider(
-                              color: kGreyColor,
-                              height: 1.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.signUpwith,
-                            style: subtitle.copyWith(color: kGreyColor),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        child: const LoginOption(),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,

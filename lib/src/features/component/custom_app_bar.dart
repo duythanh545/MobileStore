@@ -241,13 +241,19 @@ PreferredSizeWidget? appBarWidget(BuildContext context, bool isBack) {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                ))
-            : Image(
-                image: const AssetImage('assets/images/banner0.jpg'),
-                height: MediaQuery.of(context).size.height * 0.06),
+                icon: const Icon(Icons.arrow_back_ios, color: Colors.white))
+            : null,
+        title: isBack
+            ? null
+            : Row(
+                children: [
+                  Image.asset('assets/icon/logo_mobile_icon.png',
+                      height: MediaQuery.of(context).size.height * 0.04),
+                  const SizedBox(width: 15),
+                  const Text('Mobile Store',
+                      style: TextStyle(color: Colors.blue, fontSize: 30)),
+                ],
+              ),
         actions: [
           DropdownButton<Language>(
             iconSize: 30,

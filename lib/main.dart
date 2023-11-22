@@ -21,8 +21,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _autoLogin();
   await _getUser();
-  final NetworkController networkContrroller = Get.put(NetworkController());
-  networkContrroller.onInit();
+  final NetworkController networkController = Get.put(NetworkController());
+  networkController.onInit();
   await Hive.initFlutter();
   Hive.registerAdapter(ProductDetailCartAdapter());
   getUser.cartBox = await Hive.openBox<ProductDetailCart>('cartBox');
